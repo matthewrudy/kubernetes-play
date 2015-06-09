@@ -4,6 +4,23 @@ Kubernetes Play
 We'll deploy and play around with Kubernetes
 (on Google Container Engine)
 
+## Images
+
+For the purposes of Demoing,
+we have two images we're using.
+
+### matthewrudy/go-env
+
+A mini app in go, that listens on port 8080
+and renders all the `env` as a web page.
+
+### matthewrudy/ruby-secrets
+
+A sinatra app that listens on port 4567
+
+It looks for `/etc/secrets`
+and if it's there, renders a list of the files.
+
 ## Pods
 
 ### create a Pod
