@@ -8,6 +8,10 @@ We'll deploy and play around with Kubernetes
 
 kubectl create -f pod.yaml
 
+# look closer
+
+kubectl describe go-env
+
 # port forward
 
 kubectl port-forward -p go-env 8080
