@@ -23,13 +23,38 @@ and if it's there, renders a list of the files.
 
 ## Pods
 
-### create a Pod
+### Take a look
 
+``` bash
+cat kube/pod.yml
+
+apiVersion: v1beta3
+kind: Pod
+metadata:
+  labels:
+    name: go-env
+  name: go-env
+  namespace: default
+spec:
+  containers:
+  - image: matthewrudy/go-env:v1
+    imagePullPolicy: IfNotPresent
+    name: go-env
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+  restartPolicy: Always
+```
+
+### Create it
+
+```
 kubectl create -f kube/pod.yaml
+```
 
-### look closer
+### Look closer
 
-kubectl describe go-env
+kubectl describe pod go-env
 
 ### port forward
 
@@ -139,27 +164,27 @@ kubectl rolling-update go-env --image=matthewrudy/go-env:v1
 cat kube/service.json
 
 {
-    "kind": "Service",
-    "apiVersion": "v1beta3",
-    "metadata": {
-        "name": "go-env",
-        "labels": {
+  "kind": "Service",
+  "apiVersion": "v1beta3",
+  "metadata": {
+      "name": "go-env",
+      "labels": {
+        "name": "go-env"
+      }
+  },
+  "spec": {
+      "selector": {
           "name": "go-env"
-        }
-    },
-    "spec": {
-        "selector": {
-            "name": "go-env"
-        },
-        "ports": [
-            {
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort":"http-server"
-            }
-        ],
-        "createExternalLoadBalancer": true
-    }
+      },
+      "ports": [
+          {
+              "protocol": "TCP",
+              "port": 80,
+              "targetPort":"http-server"
+          }
+      ],
+      "createExternalLoadBalancer": true
+  }
 }
 ```
 
@@ -210,14 +235,14 @@ cat kube/secrets/secret.json
 kubectl create -f kube/secrets/secret.json
 ```
 
-### Mount it
+### Look at the mount
 
 ``` bash
 cat kube/secrets/pod.json
 
 {
- "apiVersion": "v1beta3",
- "kind": "Pod",
+  "apiVersion": "v1beta3",
+  "kind": "Pod",
   "metadata": {
     "name": "ruby-secrets"
   },
@@ -247,6 +272,8 @@ cat kube/secrets/pod.json
   }
 }
 ```
+
+### Create it
 
 ```
 kubectl create -f kube/secrets/pod.json
