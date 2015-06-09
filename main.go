@@ -33,15 +33,10 @@ func NewServer() *Server {
 
 // ServeHTTP implements the HTTP user interface.
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
-	// if key := r.URL.Query().Get("key") {
-	//   env := os.GetEnv(key)
-	// }
-	env := os.Environ()
-	s.renderJSON(w, env)
+	s.renderEnv(w)
 }
 
-func (s *Server) renderJSON(w http.ResponseWriter, obj interface{}) {
+func (s *Server) renderEnv(w http.ResponseWriter) {
 	data := struct {
 		ENV []string
 	}{
