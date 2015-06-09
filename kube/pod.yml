@@ -1,0 +1,16 @@
+apiVersion: v1beta3
+kind: Pod
+metadata:
+  labels:
+    name: go-env
+  name: go-env
+  namespace: default
+spec:
+  containers:
+  - image: matthewrudy/go-env:v1
+    imagePullPolicy: IfNotPresent
+    name: go-env
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+  restartPolicy: Always

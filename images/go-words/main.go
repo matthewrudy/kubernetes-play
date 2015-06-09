@@ -33,14 +33,14 @@ func NewServer() *Server {
 
 // ServeHTTP implements the HTTP user interface.
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	s.renderEnv(w)
+	s.render(w)
 }
 
-func (s *Server) renderEnv(w http.ResponseWriter) {
+func (s *Server) render(w http.ResponseWriter) {
 	data := struct {
-		ENV []string
+		Words []string
 	}{
-		getEnv(),
+		[]string{"Car", "Bar", "Jar"},
 	}
 	err := tmpl.Execute(w, data)
 	if err != nil {
@@ -57,10 +57,10 @@ func getEnv() []string {
 // tmpl is the HTML template that drives the user interface.
 var tmpl = template.Must(template.New("tmpl").Parse(`
 <!DOCTYPE html><html><body>
-	<h1>ENV</h1>
+	<h1>Words</h1>
 	<ul>
-  {{range $env := .ENV}}
-    <li>{{$env}}</li>
+  {{range $word := .Words}}
+    <li>{{$word}}</li>
   {{end}}
 	</ul>
 </body></html>

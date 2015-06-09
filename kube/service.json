@@ -1,0 +1,23 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1beta3",
+    "metadata": {
+        "name": "go-env",
+        "labels": {
+          "name": "go-env"
+        }
+    },
+    "spec": {
+        "selector": {
+            "name": "go-env"
+        },
+        "ports": [
+            {
+                "protocol": "TCP",
+                "port": 80,
+                "targetPort":"http-server"
+            }
+        ],
+        "createExternalLoadBalancer": true
+    }
+}
